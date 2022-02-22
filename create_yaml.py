@@ -14,7 +14,7 @@ with open(output_file_name, 'w') as ofile:
   ofile.write('apiVersion: argoproj.io/v1alpha1\n')
   ofile.write('kind: Workflow\n')
   ofile.write('metadata:\n')
-  ofile.write(f'  generateName: spanet-dijets-eval-{date}-\n')
+  ofile.write(f'  generateName: spanet-dijets-eval-{date}-loop-\n')
   ofile.write('spec:\n')
   ofile.write('  entrypoint: main\n')
   ofile.write('  volumes:\n')
@@ -27,25 +27,17 @@ with open(output_file_name, 'w') as ofile:
   ofile.write('  templates:\n')
   ofile.write('  - name: main\n')
   ofile.write('    steps:\n')
-  counter = 0
+  ofile.write('    - - name: inference\n')
+  ofile.write('        template: base\n')
+  ofile.write('        arguments:\n')
+  ofile.write('          parameters:\n')
+  ofile.write('          - name: input\n')
+  ofile.write('            value: "{{item}}"\n')
+  ofile.write('        withItems:\n')
   for jz in slices:
     files = [file_name for file_name in os.listdir(f'{path}JZ{jz}') if file_name.endswith('_spanet.h5')]
     for input_file in files:
-      if not counter:
-        ofile.write(f'      - - name: {counter}\n')
-        ofile.write('          template: base\n')
-        ofile.write('          arguments:\n')
-        ofile.write('            parameters:\n')
-        ofile.write('            - name: input\n')
-        ofile.write(f'              value: "{path}JZ{jz}/{input_file}"\n')
-      else:
-        ofile.write(f'        - name: {counter}\n')
-        ofile.write('          template: base\n')
-        ofile.write('          arguments:\n')
-        ofile.write('            parameters:\n')
-        ofile.write('            - name: input\n')
-        ofile.write(f'              value: "{path}JZ{jz}/{input_file}"\n')
-      counter += 1
+      ofile.write(f'        - {path}JZ{jz}/{input_file}\n')
   ofile.write('  - name: base\n')
   ofile.write('    inputs:\n')
   ofile.write('      parameters:\n')
