@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: spanet_dijets_eval_example-
+spec:
+  entrypoint: main
+
+  # This spec contains two templates: main and base
+  templates:
+  - name: main
+    # Instead of just running a container
+    # This template has a sequence of steps
+    steps:
+      - name: test           # single dash => run in parallel with other steps
+        template: base
+        arguments:
+          parameters:
+          - name: input
+            value: "/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ2/user.jbossios.364702.e7142_e5984_s3126_s3136_r10724_r10726_p4355.27356775._000031.trees_expanded_spanet.h5" # test
+
+  - name: base
+    inputs:
+      parameters:
+      - name: input
+    spec:
+      volumes:
+        - name: eos
+          hostPath:
+            path: /var/eos
+        - name: krb-secret-vol
+          secret:
+            secretName: krb-secret
+      containers:
+      - name: base-test
+        envFrom:
+          - configMapRef:
+              name: userid-configmap
+        volumeMounts:
+          - name: eos
+            mountPath: /eos
+          - name: krb-secret-vol
+            mountPath: /secret/krb-secret-vol
+        image: gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-dijets-test
+        command:
+          - "python3"
+          - "/spanet_dijets_eval.py -i {{inputs.parameters.input}}"
