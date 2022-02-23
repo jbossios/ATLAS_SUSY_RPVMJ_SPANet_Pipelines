@@ -510,6 +510,7 @@ spec:
     inputs:
       parameters:
       - name: input
+      - name: version
     retryStrategy:
       limit: 3
       retryPolicy: "Always"
@@ -523,5 +524,10 @@ spec:
         mountPath: /eos
       - name: krb-secret-vol
         mountPath: /secret/krb-secret-vol
+      resources:
+        limits:
+          memory: "10000Mi"
+        requests:
+          memory: "8000Mi"
       command: ["/bin/sh","-c"]
       args: ["python3 /spanet_dijets_eval.py -i {{inputs.parameters.input}} -v {{inputs.parameters.version}}"]
