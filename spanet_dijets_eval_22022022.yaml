@@ -1,9 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: spanet-dijets-eval-22022022-loop-
+  generateName: spanet-dijets-eval-22022022-loop-retry-2
 spec:
   entrypoint: main
+  parallelism: 10
   volumes:
     - name: eos
       hostPath:
@@ -75,6 +76,9 @@ spec:
     inputs:
       parameters:
       - name: input
+    retryStrategy:
+      limit: 3
+      retryPolicy: "Always"
     container:
       image: gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-dijets-test
       envFrom:
