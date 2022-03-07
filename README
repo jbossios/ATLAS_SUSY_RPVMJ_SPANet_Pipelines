@@ -8,3 +8,8 @@ https://gitlab.cern.ch/jbossios/docker-images
 
 Used:
 1. atlas-spanet-jona-dijets-test
+2. atlas-spanet-jona-dijets-final
+3. atlas-spanet-jona-dijets-set-num-workers
+4. atlas-spanet-jona-dijets-set-num-workers-rm-old-output
+5. atlas-spanet-jona-dijets-set-num-workers-rm-old-output-more-prints
+6. atlas-spanet-jona-dijets-eval
