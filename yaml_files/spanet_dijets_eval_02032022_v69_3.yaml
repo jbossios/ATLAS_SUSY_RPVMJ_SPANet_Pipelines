@@ -1,0 +1,158 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: spanet-dijets-eval-02032022-v69
+spec:
+  entrypoint: main
+  parallelism: 5
+  volumes:
+    - name: eos
+      hostPath:
+        path: /var/eos
+    - name: krb-secret-vol
+      secret:
+        secretName: krb-secret
+  templates:
+  - name: main
+    steps:
+    - - name: inference
+        template: base
+        arguments:
+          parameters:
+          - name: version
+            value: "{{item.version}}"
+          - name: input
+            value: "{{item.input}}"
+        withItems:
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000009.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000010.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000011.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000012.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000013.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000014.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000015.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000016.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000017.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000018.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000019.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000020.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000021.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000022.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000023.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000024.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000025.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000026.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000027.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000028.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000029.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000030.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000031.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000032.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000033.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000034.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000035.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000036.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000037.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000038.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000039.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000040.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000041.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000042.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000043.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000044.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000045.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000046.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000048.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000049.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000050.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000051.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000052.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000053.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000054.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000055.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000056.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000057.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000058.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000059.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000060.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000061.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000062.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000063.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ5/user.abadea.364705.e7142_e5984_s3126_r10724_r10726_p4355.27900577._000064.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ6/user.jbossios.364706.e7142_e5984_s3126_r10724_r10726_p4355.27261071._000001.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ6/user.jbossios.364706.e7142_e5984_s3126_r10724_r10726_p4355.27261071._000002.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ6/user.jbossios.364706.e7142_e5984_s3126_r10724_r10726_p4355.27261071._000003.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ6/user.jbossios.364706.e7142_e5984_s3126_r10724_r10726_p4355.27261071._000004.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ6/user.jbossios.364706.e7142_e5984_s3126_r10724_r10726_p4355.27261071._000005.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ6/user.jbossios.364706.e7142_e5984_s3126_r10724_r10726_p4355.27261071._000006.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ7/user.jbossios.364707.e7142_e5984_s3126_r10724_r10726_p4355.27261074._000001.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ7/user.jbossios.364707.e7142_e5984_s3126_r10724_r10726_p4355.27261074._000002.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ7/user.jbossios.364707.e7142_e5984_s3126_r10724_r10726_p4355.27261074._000003.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ7/user.jbossios.364707.e7142_e5984_s3126_r10724_r10726_p4355.27261074._000004.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ7/user.jbossios.364707.e7142_e5984_s3126_r10724_r10726_p4355.27261074._000005.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ7/user.jbossios.364707.e7142_e5984_s3126_r10724_r10726_p4355.27261074._000006.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ7/user.jbossios.364707.e7142_e5984_s3126_r10724_r10726_p4355.27261074._000007.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ7/user.jbossios.364707.e7142_e5984_s3126_r10724_r10726_p4355.27261074._000008.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ7/user.jbossios.364707.e7142_e5984_s3126_r10724_r10726_p4355.27261074._000009.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ7/user.jbossios.364707.e7142_e5984_s3126_r10724_r10726_p4355.27261074._000010.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ7/user.jbossios.364707.e7142_e5984_s3126_r10724_r10726_p4355.27261074._000011.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ7/user.jbossios.364707.e7142_e5984_s3126_r10724_r10726_p4355.27261074._000012.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ7/user.jbossios.364707.e7142_e5984_s3126_r10724_r10726_p4355.27261074._000013.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ7/user.jbossios.364707.e7142_e5984_s3126_r10724_r10726_p4355.27261074._000014.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000001.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000002.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000003.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000004.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000005.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000006.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000007.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000008.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000009.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000010.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000011.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000012.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000013.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000014.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000015.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000016.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000017.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000018.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000019.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000020.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000021.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000022.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ8/user.jbossios.364708.e7142_e5984_s3126_r10724_r10726_p4355.27261077._000023.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ9/user.jbossios.364709.e7142_e5984_s3126_r10724_r10726_p4355.27356779._000001.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ9/user.jbossios.364709.e7142_e5984_s3126_r10724_r10726_p4355.27356779._000002.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ9/user.jbossios.364709.e7142_e5984_s3126_r10724_r10726_p4355.27356779._000003.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ9/user.jbossios.364709.e7142_e5984_s3126_r10724_r10726_p4355.27356779._000004.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ9/user.jbossios.364709.e7142_e5984_s3126_r10724_r10726_p4355.27356779._000005.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ10/user.jbossios.364710.e7142_e5984_s3126_r10724_r10726_p4355.27356781._000001.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ10/user.jbossios.364710.e7142_e5984_s3126_r10724_r10726_p4355.27356781._000002.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ11/user.jbossios.364711.e7142_e5984_s3126_r10724_r10726_p4355.27261086._000001.trees_expanded_spanet.h5'}
+        - { version: '69', input: '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded/python/JZ12/user.jbossios.364712.e7142_e5984_s3126_r10724_r10726_p4355.27261089._000001.trees_expanded_spanet.h5'}
+  - name: base
+    inputs:
+      parameters:
+      - name: input
+      - name: version
+    retryStrategy:
+      limit: 3
+      retryPolicy: "Always"
+    container:
+      image: gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-dijets-set-num-workers-rm-old-output
+      envFrom:
+      - configMapRef:
+          name: userid-configmap
+      volumeMounts:
+      - name: eos
+        mountPath: /eos
+      - name: krb-secret-vol
+        mountPath: /secret/krb-secret-vol
+      resources:
+        limits:
+          memory: "12000Mi"
+        requests:
+          memory: "10000Mi"
+      command: ["/bin/sh","-c"]
+      args: ["python3 /spanet_dijets_eval.py -i {{inputs.parameters.input}} -v {{inputs.parameters.version}}"]
