@@ -21,23 +21,29 @@ from spanet.evaluation import predict_on_test_dataset, load_model
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', action='store', dest='input_file_name', default='')
+parser.add_argument('-v', action='store', dest='version', default='')
 args = parser.parse_args()
 
 if not args.input_file_name:
     print('ERROR: no input file name was provided, exiting')
     sys.exit(1)
+if not args.version:
+    print('ERROR: no version was provided, exiting')
+    sys.exit(1)
 
 input_file_name = args.input_file_name
 
-VERSION = 69 # trained with 1.4 TeV UDS+UDB full+partial events and using max8jets
-OUT_PATH = '/eos/atlas/atlaslocalgroupdisk/susy/jbossios_rpv_mj/Testing_ML_Pipelines/'
+VERSION = args.version
+OUT_PATH = '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/ML_Pipelines_Dijets_Outputs/'
 EVENT_FILE = '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/SPANET_package/SPANet/event_files/signal.ini'
-gpu = False # Temporary
+gpu = False
 
 def create_hdf5_output(output_file: str,
                        dataset: JetReconstructionDataset,
                        full_predictions: Array,
                        full_classifications: Array):
+    if os.path.isfile(output_file): # if output file exists, remove it before creating a new one
+        os.system('rm {output_file}')
     print(f"Creating output file at: {output_file}")
     with h5py.File(output_file, 'w') as output:
         output.create_dataset(f"source/mask", data=dataset.source_mask)
@@ -72,8 +78,10 @@ print(f'{log_dir = }')
 print(f'{test_file = }')
 print(f'{EVENT_FILE = }')
 print(f'{batch_size = }')
+print(f'{output_file = }')
+print(f'{extension = }')
 print(f'{gpu = }')
-model = load_model(log_dir, test_file, EVENT_FILE, batch_size, gpu)
+model = load_model(log_dir, test_file, EVENT_FILE, batch_size, gpu, num_workers = 0)
 
 full_predictions, full_classifications, *_ = predict_on_test_dataset(model, gpu)
     

@@ -1,7 +1,6 @@
-path = '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded_fixed/python/'
-slices = [i for i in range(2,13)]
-date = '04032022'
-version = '71'
+path = '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded_fixed/python/pt_geq_50GeV/'
+date = '10032022'
+version = '70'
 n_steps_per_file = 125
 debug = False
 
@@ -13,7 +12,7 @@ import os
 import sys # Temporary
 
 # Find number of yaml files to be created
-total_steps = sum([1 for jz in slices for file_name in os.listdir(f'{path}JZ{jz}') if file_name.endswith('_spanet.h5')])
+total_steps = sum([1 for file_name in os.listdir(path) if file_name.endswith('_spanet.h5')])
 n_yaml_files = int(total_steps / n_steps_per_file)
 if n_yaml_files * n_steps_per_file < total_steps:
   n_yaml_files += 1
@@ -23,23 +22,19 @@ if debug:
   print('total_steps = {}'.format(total_steps))
   print('n_yaml_files = {}'.format(n_yaml_files))
 
+# Separate files into several yaml files
 counter = 1
 yaml_dicts = dict()
-for jz in slices:
-  files = [file_name for file_name in os.listdir(f'{path}JZ{jz}') if file_name.endswith('_spanet.h5')]
-  for input_file in files:
-    yaml_file_index = int(counter / n_steps_per_file)
-    if yaml_file_index * n_steps_per_file < counter:
-      yaml_file_index += 1
-    if yaml_file_index-1 not in yaml_dicts:
-      yaml_dicts[yaml_file_index-1] = {jz : [input_file]}
-      #{'jz': jz, 'input_files': [input_file]}
-    else:
-      if jz not in yaml_dicts[yaml_file_index-1]:
-        yaml_dicts[yaml_file_index-1][jz] = [input_file]
-      else:
-        yaml_dicts[yaml_file_index-1][jz].append(input_file)
-    counter += 1
+files = [file_name for file_name in os.listdir(path) if file_name.endswith('_spanet.h5')]
+for input_file in files:
+  yaml_file_index = int(counter / n_steps_per_file)
+  if yaml_file_index * n_steps_per_file < counter:
+    yaml_file_index += 1
+  if yaml_file_index-1 not in yaml_dicts:
+    yaml_dicts[yaml_file_index-1] = [input_file]
+  else:
+    yaml_dicts[yaml_file_index-1].append(input_file)
+  counter += 1
 
 # Create yaml files
 for yaml_counter in range(n_yaml_files):
@@ -48,7 +43,7 @@ for yaml_counter in range(n_yaml_files):
     ofile.write('apiVersion: argoproj.io/v1alpha1\n')
     ofile.write('kind: Workflow\n')
     ofile.write('metadata:\n')
-    ofile.write(f'  generateName: spanet-dijets-eval-{date}-v{version}\n')
+    ofile.write(f'  generateName: spanet-dijets-eval-{date}-v{version}-id{yaml_counter}\n')
     ofile.write('spec:\n')
     ofile.write('  entrypoint: main\n')
     ofile.write('  parallelism: 5\n')
@@ -74,9 +69,8 @@ for yaml_counter in range(n_yaml_files):
     ofile.write('          - name: input\n')
     ofile.write('            value: "{{item.input}}"\n')
     ofile.write('        withItems:\n')
-    for jz, input_files in yaml_dicts[yaml_counter].items():
-      for input_file in input_files:
-        ofile.write("        - { version: '"+version+"', input: '"+path+"JZ"+str(jz)+"/"+input_file+"'}\n")
+    for input_file in yaml_dicts[yaml_counter]:
+      ofile.write("        - { version: '"+version+"', input: '"+path+input_file+"'}\n")
     ofile.write('  - name: base\n')
     ofile.write('    inputs:\n')
     ofile.write('      parameters:\n')
