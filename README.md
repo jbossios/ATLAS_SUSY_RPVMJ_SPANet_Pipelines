@@ -40,7 +40,7 @@ python create_yaml.py
 
 On a notebook terminal run the following:
 
-````
+```
 kubectl delete secret krb-secret
 kinit USERNAME
 kubectl create secret generic krb-secret --from-file=/tmp/krb5cc_1000
