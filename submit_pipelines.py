@@ -1,7 +1,7 @@
 import kfp
 import sys
 
-def submit_pipeline(date, spanet_version, pipeline_id, path, experiment_id = 'dijeteval'):
+def submit_pipeline(date, spanet_version, pipeline_id, path, experiment_id = 'dijetseval11032022'):
   client = kfp.Client()
   pipeline_name = f'spanet-dijets-eval-{date}-{spanet_version}-id{pipeline_id}'
   pipeline_file = f'{path}spanet_dijets_eval_{date}_{spanet_version}_{pipeline_id}.yaml'
