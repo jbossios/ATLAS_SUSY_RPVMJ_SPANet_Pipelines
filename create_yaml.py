@@ -8,7 +8,7 @@ def create_yaml_files(path, version, n_steps_per_file, debug = False):
   date = datetime.now().strftime("%d/%m/%Y").replace('/', '')
 
   # Create output folder
-  output_folder = 'yaml_files/'
+  output_folder = '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/SPANET_Pipelines_yaml_files/'
   if not os.path.exists(output_folder):
     os.makedirs(output_folder)
 

@@ -53,7 +53,22 @@ kubectl create secret generic krb-secret --from-file=/tmp/krb5cc_1000
 3. Define ```Pipeline Name``` (must be unique)
 4. Set ```Pipeline Description``` to ```namespace: jonathan-bossio```
 5. Upload yaml file and click ```create```
+6. After new page is loaded, click ```+ Create run```
+7. Choose experiment and click ```Start```
+8. Monitor pipeline under Pipelines > Experiments
 
 #### Submit pipelines with kfp
 
+Set the following in ```submit_pipelines.py```:
 
+- ```date```: should match the date of the yaml files
+- ```n_yaml_files_per_version```: should match the number of yaml files created per SPANet's versions
+- ```versions```: SPANet versions to use
+
+Submit pipelines with the following (inside a kubeflow jupyter notebook):
+
+```
+python3 submit_pipelines.py
+```
+
+Pipelines can be monitored on https://ml.cern.ch (Pipelines > Experiments)
