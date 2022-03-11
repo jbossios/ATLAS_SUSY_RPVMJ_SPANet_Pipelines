@@ -46,10 +46,17 @@ kinit USERNAME
 kubectl create secret generic krb-secret --from-file=/tmp/krb5cc_1000
 ```
 
+### Get SPANet
+
+```
+cp -r /eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/SPANET_package_backup_notebook/SPANet .
+cd SPANet/
+```
+
 * To open a jupyter notebook on Kubeflow, follow these steps:
 
 1. ssh -D 8090 lxplus.cern.ch
-2.  google-chrome --proxy-server=socks5://127.0.0.1:8090
+2. google-chrome --proxy-server=socks5://127.0.0.1:8090
 3. Go to https://ml.cern.ch
 4. Create a notebook using 1 GPU and the following image: gitlab-registry.cern.ch/ai-ml/kubeflow_images/atlas-pytorch-gpu:0183442cdb7ad58434d6626b2ac6ff2befffa9a9
 
@@ -66,6 +73,8 @@ kubectl create secret generic krb-secret --from-file=/tmp/krb5cc_1000
 
 #### Submit pipelines with kfp
 
+The ```submit_pipelines.py``` script should be already present (but if it is outdated, clone this repo or copy here new version)
+
 Set the following in ```submit_pipelines.py```:
 
 - ```date```: should match the date of the yaml files
@@ -79,3 +88,19 @@ python3 submit_pipelines.py
 ```
 
 Pipelines can be monitored on https://ml.cern.ch (Pipelines > Experiments)
+
+### How to terminate pipelines with kfp
+
+#### Get list of pipelines with Python
+
+```
+import kfp
+client = kfp.Client()
+print([pipeline.name for pipeline in client.list_pipelines().pipelines])
+```
+
+Delete the pipeline of your choice with the following
+
+```
+client.delete_pipeline(client.get_pipeline_id("PIPELINE_NAME"))
+```
