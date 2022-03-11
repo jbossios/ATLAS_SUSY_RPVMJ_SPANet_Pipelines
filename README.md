@@ -38,13 +38,20 @@ python create_yaml.py
 
 ### Create kerberos ticket
 
-On a notebook terminal run the following:
+On a notebook terminal run the following*:
 
 ```
 kubectl delete secret krb-secret
 kinit USERNAME
 kubectl create secret generic krb-secret --from-file=/tmp/krb5cc_1000
 ```
+
+* To open a jupyter notebook on Kubeflow, follow these steps:
+
+1. ssh -D 8090 lxplus.cern.ch
+2.  google-chrome --proxy-server=socks5://127.0.0.1:8090
+3. Go to https://ml.cern.ch
+4. Create a notebook using 1 GPU and the following image: gitlab-registry.cern.ch/ai-ml/kubeflow_images/atlas-pytorch-gpu:0183442cdb7ad58434d6626b2ac6ff2befffa9a9
 
 #### Submit a pipeline using ml.cern.ch
 
