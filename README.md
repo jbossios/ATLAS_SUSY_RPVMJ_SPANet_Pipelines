@@ -104,3 +104,23 @@ Delete the pipeline of your choice with the following
 ```
 client.delete_pipeline(client.get_pipeline_id("PIPELINE_NAME"))
 ```
+
+### How to get the log from a pipeline on a Jupyter notebook
+
+1. Get list of workflows
+
+```
+kubectl -n jonathan-bossio get workflows
+```
+
+2. List pods from a workflow (example for spanet-dijets-eval-23022022-69hzrc5)
+
+```
+kubectl -n jonathan-bossio get pods | grep spanet-dijets-eval-23022022-69hzrc5
+```
+
+3. Get log for a given pod (example for pod spanet-dijets-eval-23022022-69hzrc5-918158780)
+
+```
+kubectl -n jonathan-bossio logs spanet-dijets-eval-23022022-69hzrc5-918158780 main
+```
