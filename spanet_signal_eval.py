@@ -34,7 +34,7 @@ if not args.version:
 input_file_name = args.input_file_name
 
 VERSION = args.version
-OUT_PATH = '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/ML_Pipelines_Dijets_Outputs/'
+OUT_PATH = '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/ML_Pipelines_Signal_Outputs/'
 EVENT_FILE = '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/SPANET_package/SPANet/event_files/signal.ini'
 gpu = False
 
@@ -63,7 +63,7 @@ test_file = input_file_name
 output_path = f'{OUT_PATH}v{VERSION}'
 if not os.path.exists(output_path):
     os.makedirs(output_path)
-
+    
 rtags = ['r9364', 'r10201', 'r10724']
 splits = input_file_name.split('.')
 dsid = splits[2]
@@ -71,7 +71,7 @@ tags = splits[3].split('_')
 rtag = [tag for tag in tags if tag in rtags][0]
 extension = '.'.join(splits[4:7])
 
-output_file = f'{output_path}/dijets_v{VERSION}_output_{dsid}_{rtag}_{extension}.h5'
+output_file = f'{output_path}/signal_v{VERSION}_output_{dsid}_{rtag}_{extension}.h5'
 
 batch_size = None
 

@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-def create_yaml_files(path, version, n_steps_per_file, debug = False):
+def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = False):
   """ Create yaml files to evaluate dijets using a given SPANet's network version """
 
   # Get date
@@ -17,7 +17,11 @@ def create_yaml_files(path, version, n_steps_per_file, debug = False):
     version = str(version)
 
   # Find number of yaml files to be created
-  total_steps = sum([1 for file_name in os.listdir(path) if file_name.endswith('_spanet.h5')])
+  skip_label = {
+    'signal': 'GGrpv2x3ALL',
+    'dijets': 'DijetsALL',
+  }[sample_type]
+  total_steps = sum([1 for file_name in os.listdir(path) if file_name.endswith('.h5')] and skip_label not in file_name)
   n_yaml_files = int(total_steps / n_steps_per_file)
   if n_yaml_files * n_steps_per_file < total_steps:
     n_yaml_files += 1
@@ -30,7 +34,7 @@ def create_yaml_files(path, version, n_steps_per_file, debug = False):
   # Separate files into several yaml files
   counter = 1
   yaml_dicts = dict()
-  files = [file_name for file_name in os.listdir(path) if file_name.endswith('_spanet.h5')]
+  files = [file_name for file_name in os.listdir(path) if file_name.endswith('.h5') and skip_label not in file_name]
   for input_file in files:
     yaml_file_index = int(counter / n_steps_per_file)
     if yaml_file_index * n_steps_per_file < counter:
@@ -43,12 +47,12 @@ def create_yaml_files(path, version, n_steps_per_file, debug = False):
 
   # Create yaml files
   for yaml_counter in range(n_yaml_files):
-    output_file_name = f'{output_folder}spanet_dijets_eval_{date}_v{version}_{yaml_counter}.yaml'
+    output_file_name = f'{output_folder}spanet_{sample_type}_eval_{date}_v{version}_{yaml_counter}.yaml'
     with open(output_file_name, 'w') as ofile:
       ofile.write('apiVersion: argoproj.io/v1alpha1\n')
       ofile.write('kind: Workflow\n')
       ofile.write('metadata:\n')
-      ofile.write(f'  generateName: spanet-dijets-eval-{date}-v{version}-id{yaml_counter}\n')
+      ofile.write(f'  generateName: spanet-{sample_type}-eval-{date}-v{version}-id{yaml_counter}\n')
       ofile.write('spec:\n')
       ofile.write('  entrypoint: main\n')
       ofile.write('  parallelism: 5\n')
@@ -102,12 +106,16 @@ def create_yaml_files(path, version, n_steps_per_file, debug = False):
       ofile.write('        requests:\n')
       ofile.write('          memory: "10000Mi"\n')
       ofile.write('      command: ["/bin/sh","-c"]\n')
-      ofile.write('      args: ["python3 /spanet_dijets_eval.py -i {{inputs.parameters.input}} -v {{inputs.parameters.version}}"]\n')
+      ofile.write(f'      args: ["python3 /spanet_{sample_type}_eval.py -i {{inputs.parameters.input}} -v {{inputs.parameters.version}}"]\n')
 
 if __name__ == '__main__':
-  path = '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets_expanded_fixed/python/pt_geq_50GeV/'
+  sample_type = 'signal'
+  path = {
+    'signal': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/signal/HighStats/PROD0/h5/v0/',
+    'dijets': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets/PROD2/h5/v1/',
+  }[sample_type]
   n_steps = 125
-  versions = [str(i) for i in range(72, 92)]
+  versions = [str(i) for i in range(96, 97)]
   for version in versions:
-    create_yaml_files(path, version, n_steps)
+    create_yaml_files(sample_type, path, version, n_steps)
   print('>>> ALL DONE <<<')
