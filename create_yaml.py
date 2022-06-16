@@ -21,7 +21,7 @@ def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = Fals
     'signal': 'GGrpv2x3ALL',
     'dijets': 'DijetsALL',
   }[sample_type]
-  total_steps = sum([1 for file_name in os.listdir(path) if file_name.endswith('.h5')] and skip_label not in file_name)
+  total_steps = sum([1 for file_name in os.listdir(path) if file_name.endswith('.h5') and skip_label not in file_name])
   n_yaml_files = int(total_steps / n_steps_per_file)
   if n_yaml_files * n_steps_per_file < total_steps:
     n_yaml_files += 1
