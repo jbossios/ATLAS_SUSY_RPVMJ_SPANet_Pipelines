@@ -79,6 +79,7 @@ Set the following in ```submit_pipelines.py```:
 
 - ```date```: should match the date of the yaml files
 - ```n_yaml_files_per_version```: should match the number of yaml files created per SPANet's versions
+- ```sample_type```: signal or dijets
 - ```versions```: SPANet versions to use
 
 Submit pipelines with the following (inside a kubeflow jupyter notebook):
