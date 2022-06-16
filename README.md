@@ -2,7 +2,10 @@
 
 ## Create a docker image with the evaluation script (only if image doesn't already exists)
 
-If ```spanet_dijets_eval.py``` was modified, create a new docker image (otherwise, use ```gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-dijets-eval```).
+If ```spanet_dijets_eval.py``` was modified, create a new docker image, otherwise select one of the following images:
+
+- ```gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-dijets-eval```: first working image (old inputs)
+- ```gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-eval-all```: latest image (first time supporting signal inputs)
 
 Run the following to create a new docker image (change ```CUSTOM``` accordingly):
 
