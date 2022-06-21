@@ -65,6 +65,7 @@ if not os.path.exists(output_path):
     os.makedirs(output_path)
     
 rtags = ['r9364', 'r10201', 'r10724']
+print(f'{input_file_name = }')
 splits = input_file_name.split('.')
 dsid = splits[2]
 tags = splits[3].split('_')
