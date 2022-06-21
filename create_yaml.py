@@ -6,6 +6,7 @@ def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = Fals
 
   # Get date
   date = datetime.now().strftime("%d/%m/%Y").replace('/', '')
+  #date = '18062022'
 
   # Create output folder
   output_folder = '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/SPANET_Pipelines_yaml_files/'
@@ -89,7 +90,7 @@ def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = Fals
       ofile.write('      limit: 3\n')
       ofile.write('      retryPolicy: "Always"\n')
       ofile.write('    container:\n')
-      ofile.write('      image: gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-dijets-eval\n')
+      ofile.write('      image: gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-eval-all-210622\n')
       ofile.write('      envFrom:\n')
       ofile.write('      - configMapRef:\n')
       ofile.write('          name: userid-configmap\n')
@@ -106,7 +107,10 @@ def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = Fals
       ofile.write('        requests:\n')
       ofile.write('          memory: "10000Mi"\n')
       ofile.write('      command: ["/bin/sh","-c"]\n')
-      ofile.write(f'      args: ["python3 /spanet_{sample_type}_eval.py -i {{inputs.parameters.input}} -v {{inputs.parameters.version}}"]\n')
+      if sample_type == 'signal':
+        ofile.write('      args: ["python3 /spanet_signal_eval.py -i {{inputs.parameters.input}} -v {{inputs.parameters.version}}"]\n')
+      else:
+        ofile.write('      args: ["python3 /spanet_dijets_eval.py -i {{inputs.parameters.input}} -v {{inputs.parameters.version}}"]\n')
 
 if __name__ == '__main__':
   sample_type = 'signal'
