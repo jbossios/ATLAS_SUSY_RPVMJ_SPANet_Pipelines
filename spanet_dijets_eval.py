@@ -64,14 +64,16 @@ output_path = f'{OUT_PATH}v{VERSION}'
 if not os.path.exists(output_path):
     os.makedirs(output_path)
 
-rtags = ['r9364', 'r10201', 'r10724']
-splits = input_file_name.split('.')
-dsid = splits[2]
-tags = splits[3].split('_')
-rtag = [tag for tag in tags if tag in rtags][0]
-extension = '.'.join(splits[4:7])
+#rtags = ['r9364', 'r10201', 'r10724']
+#splits = input_file_name.split('.')
+#dsid = splits[2]
+#tags = splits[3].split('_')
+#rtag = [tag for tag in tags if tag in rtags][0]
+#extension = '.'.join(splits[4:7])
+#output_file = f'{output_path}/dijets_v{VERSION}_output_{dsid}_{rtag}_{extension}.h5'
 
-output_file = f'{output_path}/dijets_v{VERSION}_output_{dsid}_{rtag}_{extension}.h5'
+output_file_name = input_file_name.replace('.h5', f'_spanet_v{VERSION}.h5')
+output_file = f'{output_path}/{output_file_name}'
 
 batch_size = None
 
