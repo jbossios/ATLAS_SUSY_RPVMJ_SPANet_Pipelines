@@ -17,9 +17,12 @@ def submit_pipeline(sample, date, spanet_version, pipeline_id, path, experiment_
   run = client.run_pipeline(exp.id, pipeline_name, pipeline_file)
 
 if __name__ == '__main__':
-  date = '21062022'
-  sample = 'signal'  # options: dijets, signal
-  n_yaml_files_per_version = 4
+  date = '23062022'
+  sample = 'dijets'  # options: dijets, signal
+  n_yaml_files_per_version = {
+    'signal': 5,
+    'dijets': 2,
+  }[sample]
   versions = [f'v{i}' for i in range(96, 97)]
   path_to_yaml_files = '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/SPANET_Pipelines_yaml_files/'
   for version in versions:
