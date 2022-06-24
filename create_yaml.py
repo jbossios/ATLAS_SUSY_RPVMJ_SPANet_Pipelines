@@ -20,8 +20,7 @@ def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = Fals
   # Find number of yaml files to be created
   skip_label = {
     'signal': 'GGrpv2x3ALL',
-    #'dijets': 'DijetsALL',
-    'dijets': 'jetjet_JZWithSW_SRRPV',
+    'dijets': 'DijetsALL',
   }[sample_type]
   total_steps = sum([1 for file_name in os.listdir(path) if file_name.endswith('.h5') and skip_label not in file_name])
   n_yaml_files = int(total_steps / n_steps_per_file)
@@ -118,7 +117,8 @@ if __name__ == '__main__':
   path = {
     'signal': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/signal/HighStats/PROD0/h5/v0/',
     #'dijets': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets/PROD2/h5/v1/',  # missing dummy g1/g2 info
-    'dijets': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16a/dijets/PROD3/h5/v1/',
+    #'dijets': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16a/dijets/PROD3/h5/v1/',  # empty H5 files
+    'dijets': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16a/dijets/PROD3/h5/v2/',
   }[sample_type]
   n_steps = 125
   versions = [str(i) for i in range(96, 97)]
