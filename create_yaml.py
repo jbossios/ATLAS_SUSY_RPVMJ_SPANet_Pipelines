@@ -91,7 +91,7 @@ def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = Fals
       ofile.write('      limit: 3\n')
       ofile.write('      retryPolicy: "Always"\n')
       ofile.write('    container:\n')
-      ofile.write('      image: gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-eval-all-230622\n')
+      ofile.write('      image: gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-eval-all-240622\n')
       ofile.write('      envFrom:\n')
       ofile.write('      - configMapRef:\n')
       ofile.write('          name: userid-configmap\n')
