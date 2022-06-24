@@ -82,7 +82,6 @@ print(f'{test_file = }')
 print(f'{EVENT_FILE = }')
 print(f'{batch_size = }')
 print(f'{output_file = }')
-print(f'{extension = }')
 print(f'{gpu = }')
 model = load_model(log_dir, test_file, EVENT_FILE, batch_size, gpu, num_workers = 0)
 
