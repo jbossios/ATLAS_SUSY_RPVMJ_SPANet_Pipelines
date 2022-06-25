@@ -72,7 +72,7 @@ if not os.path.exists(output_path):
 #extension = '.'.join(splits[4:7])
 #output_file = f'{output_path}/dijets_v{VERSION}_output_{dsid}_{rtag}_{extension}.h5'
 
-output_file_name = input_file_name.replace('.h5', f'_spanet_v{VERSION}.h5')
+output_file_name = input_file_name.split('/')[-1].replace('.h5', f'_spanet_v{VERSION}.h5')
 output_file = f'{output_path}/{output_file_name}'
 
 batch_size = None
