@@ -9,7 +9,8 @@ If ```spanet_dijets_eval.py``` was modified, create a new docker image, otherwis
 - ```gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-eval-all-210622```: third image (first time supporting signal inputs)
 - ```gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-eval-all-230622```: forth image (crashes due to print of missing variable)
 - ```gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-eval-all-240622```: fifth image (fixed print of missing variable but wrong output file name)
-- ```gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-eval-all-250622```: latest image (fixed output file name)
+- ```gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-eval-all-250622```: sixth image (fixed output file name, crashes on single-event inputs)
+- ```gitlab-registry.cern.ch/jbossios/docker-images/atlas-spanet-jona-eval-all-010722```: latest image (spanet fixed to work on inputs w/ 1 event only)
 
 Run the following to create a new docker image (change ```CUSTOM``` accordingly):
 

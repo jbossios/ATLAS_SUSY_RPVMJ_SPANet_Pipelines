@@ -11,10 +11,12 @@ os.system('chmod 600 /tmp/krb5cc_1000')
 os.system('cp /secret/krb-secret-vol/krb5cc_1000 /tmp/krb5cc_0')
 os.system('chmod 600 /tmp/krb5cc_0')
 os.system('ls /tmp')
-os.system('ls /eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/SPANET_package/SPANet/')
+#os.system('ls /eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/SPANET_package/SPANet/')
+os.system('ls /eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/SPANET_package_backup_notebook/SPANet/')
 
 import sys
-sys.path.insert(1, '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/SPANET_package/SPANet/')
+#sys.path.insert(1, '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/SPANET_package/SPANet/')
+sys.path.insert(1, '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/SPANET_package_backup_notebook/SPANet/')
 from spanet.dataset.jet_reconstruction_dataset import JetReconstructionDataset
 from spanet.evaluation import predict_on_test_dataset, load_model
 
