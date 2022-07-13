@@ -1,4 +1,5 @@
 import os
+import sys
 from datetime import datetime
 
 def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = False):
@@ -17,12 +18,26 @@ def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = Fals
   if not isinstance(version, str):
     version = str(version)
 
+  # Skip input files which already have a corresponding output file
+  h5_outputs_path = '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/ML_Pipelines_{}_Outputs/v{}/'.format('Dijets' if sample_type == 'dijets' else 'Signal', version)
+  h5_files = [file_name for file_name in os.listdir(h5_outputs_path) if '.h5' in file_name]
+  skip_files = []
+  for file_name in os.listdir(path):
+    h5_file_name = file_name.replace('.h5', '_spanet_v{}.h5'.format(version))
+    if h5_file_name in h5_files:
+      skip_files.append(file_name)
+
   # Find number of yaml files to be created
   skip_label = {
     'signal': 'GGrpv2x3ALL',
     'dijets': 'DijetsALL',
   }[sample_type]
-  total_steps = sum([1 for file_name in os.listdir(path) if file_name.endswith('.h5') and skip_label not in file_name])
+  total_steps = sum([1 for file_name in os.listdir(path) if file_name.endswith('.h5') and skip_label not in file_name and file_name not in skip_files])
+  if total_steps == 0:
+    print('No need to send any pipeline (there is an output for each input file), no yaml files will be created, exiting')
+    sys.exit(0)
+  else:
+    print('Will create pipelines for a total of {} steps'.format(total_steps))
   n_yaml_files = int(total_steps / n_steps_per_file)
   if n_yaml_files * n_steps_per_file < total_steps:
     n_yaml_files += 1
@@ -120,7 +135,8 @@ if __name__ == '__main__':
     #'dijets': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16a/dijets/PROD3/h5/v1/',  # empty H5 files
     'dijets': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16a/dijets/PROD3/h5/v2/',
   }[sample_type]
-  n_steps = 125
+  #n_steps = 125
+  n_steps = 70
   versions = [str(i) for i in range(96, 97)]
   for version in versions:
     create_yaml_files(sample_type, path, version, n_steps)
