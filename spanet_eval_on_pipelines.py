@@ -41,7 +41,7 @@ LOG_DIR = f'/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-
 OUT_PATH = f'/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/ML_Pipelines_{sample}_Outputs/'
 
 # Create output folder
-output_path = f'{OUT_PATH}v{VERSION}'
+output_path = f'{OUT_PATH}v{version}'
 if not os.path.exists(output_path):
     os.makedirs(output_path)
 
