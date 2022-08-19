@@ -1,8 +1,13 @@
 import kfp
 import sys
 
-def submit_pipeline(sample, date, spanet_version, pipeline_id, path, experiment_id = 'dijetseval11032022'):
+#def submit_pipeline(sample, date, spanet_version, pipeline_id, path, experiment_id = 'dijetseval11032022'):
+def submit_pipeline(sample, date, spanet_version, pipeline_id, path, experiment_id = 'spaneteval19082022'):
   client = kfp.Client()
+  sample = {
+    'Dijets': 'dijets',
+    'Signal': 'signal',
+  }[sample]
   pipeline_name = f'spanet-{sample}-eval-{date}-{spanet_version}-id{pipeline_id}'
   pipeline_file = f'{path}spanet_{sample}_eval_{date}_{spanet_version}_{pipeline_id}.yaml'
   print(f'INFO: Submitting {pipeline_file}...')
@@ -17,13 +22,13 @@ def submit_pipeline(sample, date, spanet_version, pipeline_id, path, experiment_
   run = client.run_pipeline(exp.id, pipeline_name, pipeline_file)
 
 if __name__ == '__main__':
-  date = '23062022'
-  sample = 'dijets'  # options: dijets, signal
+  date = '19082022'
+  sample = 'Dijets'  # options: dijets, signal
   n_yaml_files_per_version = {
-    'signal': 5,
-    'dijets': 2,
+    'Signal': 5,  # FIXME
+    'Dijets': 3,
   }[sample]
-  versions = [f'v{i}' for i in range(96, 97)]
+  versions = [f'v{i}' for i in range(97, 98)]
   path_to_yaml_files = '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/spanet_jona/SPANET_Pipelines_yaml_files/'
   for version in versions:
     for i in range(n_yaml_files_per_version):
