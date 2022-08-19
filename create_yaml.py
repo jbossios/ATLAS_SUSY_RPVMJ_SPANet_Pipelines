@@ -18,7 +18,13 @@ def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = Fals
     version = str(version)
 
   # Find number of yaml files to be created
-  total_steps = sum([1 for folder in os.listdir(path) for file_name in os.listdir(path + folder) if 'user' in folder and file_name.endswith('.root')])
+  files = []
+  for folder in os.listdir(path):
+    if 'user' not in folder: continue
+    for file_name in os.listdir(path + folder):
+      if not file_name.endswith('.root'): continue
+      files.append(folder + '/' + file_name)
+  total_steps = sum([1 for file_name in files])
   n_yaml_files = int(total_steps / n_steps_per_file)
   if n_yaml_files * n_steps_per_file < total_steps:
     n_yaml_files += 1
@@ -31,7 +37,6 @@ def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = Fals
   # Separate files into several yaml files
   counter = 1
   yaml_dicts = dict()
-  files = [file_name for folder in os.listdir(path) for file_name in os.listdir(path + folder) if 'user' in folder and file_name.endswith('.root')]
   for input_file in files:
     yaml_file_index = int(counter / n_steps_per_file)
     if yaml_file_index * n_steps_per_file < counter:
@@ -44,12 +49,16 @@ def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = Fals
 
   # Create yaml files
   for yaml_counter in range(n_yaml_files):
-    output_file_name = f'{output_folder}spanet_{sample_type}_eval_{date}_v{version}_{yaml_counter}.yaml'
+    sample_name ={
+      'Dijets': 'dijets',
+      'Signal': 'signal',
+    }[sample_type]
+    output_file_name = f'{output_folder}spanet_{sample_name}_eval_{date}_v{version}_{yaml_counter}.yaml'
     with open(output_file_name, 'w') as ofile:
       ofile.write('apiVersion: argoproj.io/v1alpha1\n')
       ofile.write('kind: Workflow\n')
       ofile.write('metadata:\n')
-      ofile.write(f'  generateName: spanet-{sample_type}-eval-{date}-v{version}-id{yaml_counter}\n')
+      ofile.write(f'  generateName: spanet-{sample_name}-eval-{date}-v{version}-id{yaml_counter}\n')
       ofile.write('spec:\n')
       ofile.write('  entrypoint: main\n')
       ofile.write('  parallelism: 5\n')
@@ -103,7 +112,7 @@ def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = Fals
       ofile.write('        requests:\n')
       ofile.write('          memory: "10000Mi"\n')
       ofile.write('      command: ["/bin/sh","-c"]\n')
-      ofile.write('      args: ["python3 /spanet_eval_on_pipelines.py -i {{inputs.parameters.input}} -v {{inputs.parameters.version}} -s {sample_type}"]\n')
+      ofile.write('      args: ["python3 /spanet_eval_on_pipelines.py -i {{inputs.parameters.input}} -v {{inputs.parameters.version}} -s ' + sample_type + '"]\n')
 
 
 if __name__ == '__main__':
