@@ -18,7 +18,11 @@ def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = Fals
     version = str(version)
 
   # Find number of yaml files to be created
-  total_steps = sum([1 for folder in os.listdir(path) for file_name in os.listdir(path + folder) if 'user' in folder and file_name.endswith('.root')])
+  skip_label = {
+    'Signal': 'GGrpv2x3ALL',
+    'Dijets': 'DijetsALL',
+  }[sample_type]
+  total_steps = sum([1 for file_name in os.listdir(path) if file_name.endswith('.h5') and skip_label not in file_name])
   n_yaml_files = int(total_steps / n_steps_per_file)
   if n_yaml_files * n_steps_per_file < total_steps:
     n_yaml_files += 1
@@ -31,7 +35,7 @@ def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = Fals
   # Separate files into several yaml files
   counter = 1
   yaml_dicts = dict()
-  files = [file_name for folder in os.listdir(path) for file_name in os.listdir(path + folder) if 'user' in folder and file_name.endswith('.root')]
+  files = [file_name for file_name in os.listdir(path) if file_name.endswith('.h5') and skip_label not in file_name]
   for input_file in files:
     yaml_file_index = int(counter / n_steps_per_file)
     if yaml_file_index * n_steps_per_file < counter:
@@ -103,17 +107,24 @@ def create_yaml_files(sample_type, path, version, n_steps_per_file, debug = Fals
       ofile.write('        requests:\n')
       ofile.write('          memory: "10000Mi"\n')
       ofile.write('      command: ["/bin/sh","-c"]\n')
-      ofile.write('      args: ["python3 /spanet_eval_on_pipelines.py -i {{inputs.parameters.input}} -v {{inputs.parameters.version}} -s {sample_type}"]\n')
+      if sample_type == 'signal':
+        ofile.write('      args: ["python3 /spanet_signal_eval.py -i {{inputs.parameters.input}} -v {{inputs.parameters.version}}"]\n')
+      else:
+        ofile.write('      args: ["python3 /spanet_dijets_eval.py -i {{inputs.parameters.input}} -v {{inputs.parameters.version}}"]\n')
 
 
 if __name__ == '__main__':
-  sample_type = 'Dijets'
+  sample_type = 'dijets'
   path = {
-    'Dijets': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets/PROD4/',
-    'Signal': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/GG_rpv/PROD2/',
+    #'Signal': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/signal/HighStats/PROD0/h5/v0/',
+    ##'dijets': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/dijets/PROD2/h5/v1/',  # missing dummy g1/g2 info
+    ##'dijets': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16a/dijets/PROD3/h5/v1/',  # empty H5 files
+    #'Dijets': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16a/dijets/PROD3/h5/v2/',
+    'Dijets': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16a/dijets/PROD3/h5/v2/',
+    'Signal': '/eos/atlas/atlascerngroupdisk/phys-susy/RPV_mutlijets_ANA-SUSY-2019-24/ntuples/tag/input/mc16e/signal/HighStats/PROD0/h5/v0/',
   }[sample_type]
   n_steps = 125
-  versions = [str(i) for i in range(97, 98)]
+  versions = [str(i) for i in range(96, 97)]
   for version in versions:
     create_yaml_files(sample_type, path, version, n_steps)
   print('>>> ALL DONE <<<')
