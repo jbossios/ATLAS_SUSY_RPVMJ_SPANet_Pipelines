@@ -74,7 +74,7 @@ cd SPANet/
 1. Go to https://ml.cern.ch/_/pipeline/?
 2. Follow the '+ Upload pipeline' link.
 3. Define ```Pipeline Name``` (must be unique)
-4. Set ```Pipeline Description``` to ```namespace: jonathan-bossio```
+4. Set ```Pipeline Description``` to ```namespace: jbossios```
 5. Upload yaml file and click ```create```
 6. After new page is loaded, click ```+ Create run```
 7. Choose experiment and click ```Start```
@@ -120,17 +120,17 @@ client.delete_pipeline(client.get_pipeline_id("PIPELINE_NAME"))
 1. Get list of workflows
 
 ```
-kubectl -n jonathan-bossio get workflows
+kubectl -n jbossios get workflows
 ```
 
 2. List pods from a workflow (example for spanet-dijets-eval-23022022-69hzrc5)
 
 ```
-kubectl -n jonathan-bossio get pods | grep spanet-dijets-eval-23022022-69hzrc5
+kubectl -n jbossios get pods | grep spanet-dijets-eval-23022022-69hzrc5
 ```
 
 3. Get log for a given pod (example for pod spanet-dijets-eval-23022022-69hzrc5-918158780)
 
 ```
-kubectl -n jonathan-bossio logs spanet-dijets-eval-23022022-69hzrc5-918158780 main
+kubectl -n jbossios logs spanet-dijets-eval-23022022-69hzrc5-918158780 main
 ```
